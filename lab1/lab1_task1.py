@@ -16,21 +16,12 @@ def parsing_numbers(f,etal_scale1,etal_scale2):
 
 
 
-def parsing_task(x):     # the function which parses task-matrix which has to be recognized
-    x = str(x)
+def parsing_task(x,g,h):
+    x = np.fromstring(x, dtype=int, sep='\n')
     global STEP
-    STEP = x[2:x.find("n")-1]          # starting from looking for first "n" and spliting "\\n"
-    x = x[x.find("n")+1:].split("\\n")
-    x = list(x)
-    x[-1] = x[-1][:-1]        # deleting last symbol " ' "  
-    g = []
-    for i in x:
-        g.append([int(i) for i in i.split(" ")])         # adding and spliting by " " every row in task-matrix
-    return np.array(g)           # creating numpy array from g
-
-
-
-
+    STEP = x[0]
+    x = np.delete(x, 0)
+    return x.reshape((g,h))
 
 
 
@@ -94,9 +85,9 @@ async def hello():
             await websocket.send('Ready')              # Send the message Ready to start completing the task, Receive a problem in the form
             task = await websocket.recv()
             x = bytes(task,'utf-8')
-            task = parsing_task(x)
+            task = parsing_task(x,etal_scale1*tsk_scale1,etal_scale2*tsk_scale2)
             res = str(recognition(task, noise_level, tsk_scale1, tsk_scale2, numbers))
-            await websocket.send(STEP + " " + res)
+            await websocket.send(str(STEP) + " " + res)
             print(f"< {await websocket.recv()}")               #  Receive a response in the form [step] answerj
 
 
