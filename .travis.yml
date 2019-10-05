@@ -4,6 +4,6 @@ python:
   - "3.7.4"
 
 install:
-  - pip install asyncio,websockets,numpy 
+  - pip3 install asyncio websockets numpy 
 
 script: python -m  doctest -v  lab1_task2.py
