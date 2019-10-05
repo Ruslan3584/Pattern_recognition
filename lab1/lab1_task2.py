@@ -141,7 +141,6 @@ async def hello():
         print(response)
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(hello())
-asyncio.get_event_loop().run_until_complete(hello())
 
 
 if __name__ == "__main__":
