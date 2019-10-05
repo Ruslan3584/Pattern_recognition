@@ -4,19 +4,32 @@ import numpy as np
 
 
 def parsing_numbers(f,etal_scale1,etal_scale2):
+    '''
+    parse etalone numbers
+    '''
     f = np.fromstring(f, dtype=int, sep='\n')
     f = np.delete(f, 0)
-    c = list(range(etal_scale1*etal_scale2,len(f),(etal_scale1*etal_scale2)+1 ))    # indexes of digits
-    f = np.delete(f, c)                                                             # deleting digits
+    c = list(range(etal_scale1*etal_scale2,len(f),(etal_scale1*etal_scale2)+1))
+    '''
+    delete digits
+    '''
+    f = np.delete(f, c)
     c = list(range(0,len(f)+etal_scale1*etal_scale2 ,etal_scale1*etal_scale2))
     numbers = []
     for i in range(0,len(c)-1):
         numbers.append(f[c[i]:c[i+1]].reshape((etal_scale1,etal_scale2)))
-    return numbers      # return etalone_matrixes
+    '''
+    return etalone matrixes
+    '''
+    return numbers      
 
 
 
 def parsing_task(x,g,h):
+    '''
+    make np.array from string
+    (for further calculations)
+    '''
     x = np.fromstring(x, dtype=int, sep='\n')
     global STEP
     STEP = x[0]
@@ -30,9 +43,17 @@ def recognition(task,noise_level, tsk_scale1, tsk_scale2, numbers):
     result = []
     for i in numbers:
         d = []
-        noise = np.bitwise_xor(i, task)            # Xoring matrixes ( task + etalone_matr) 
+
+        '''
+        XOR matrixes ( task + etalone_matr) 
+        '''
+        noise = np.bitwise_xor(i, task)           
         
-        noise = noise.reshape(1, noise.shape[0]*noise.shape[1])         # reshape noise (from matr to vector)
+        '''
+        reshape noise (from matr to vector)
+        '''
+
+        noise = noise.reshape(1, noise.shape[0]*noise.shape[1])
         
         for j in range(0, noise.shape[0]*noise.shape[1]):           
             if noise[0][j] == 0:
@@ -46,8 +67,10 @@ def recognition(task,noise_level, tsk_scale1, tsk_scale2, numbers):
 
                 '''
         result.append(np.sum(np.log10(d)))              
-    
-    return np.argmax(result)           # returning  index of our guesses
+    '''
+    return index of out guesses 
+    '''
+    return np.argmax(result)           
 
 
 
@@ -56,42 +79,75 @@ def recognition(task,noise_level, tsk_scale1, tsk_scale2, numbers):
 
 
 async def hello():
-    uri = "wss://sprs.herokuapp.com/first/task2"     # task2 - session id
+    '''
+    task1 - session ID
+    '''
+    uri = "wss://sprs.herokuapp.com/first/task1"
 
     async with websockets.connect(uri) as websocket:
-        message = "Let's start"
-        await websocket.send(message)
-        tsk = await websocket.recv()           # Receiving a string [width] [height] [Number_of_etalone_matrixes] from the server
+        await websocket.send("Let's start")
+        '''
+        start session and receive parameters from server
+        '''
+        tsk = await websocket.recv()           
         print(tsk)
 
-        global etal_scale1,etal_scale2             # etal_scale1,etal_scale2 - shapes of etalone-matrixes
-        etal_scale2, etal_scale1, Number_of_etalone_matrixes = [int(i) for i in tsk.split(" ")]           # Number_of_etalone_matrixes - number of etalone-matrixes
+        '''
+        etal_scale1,etal_scale2 - shapes of etalone-matrixes
+        '''
+       
+        etal_scale2, etal_scale1,n = [int(i) for i in tsk.split(" ")]
 
         settings = input("Settings:   [width] [height] [noise] [totalSteps] [shuffle] ")
         
-        tsk_scale2, tsk_scale1, noise_level, totalSteps, shuffle = [str(i) for i in settings.split(" ")]          # these parameters were discribed in documentation
+        tsk_scale2, tsk_scale1, noise_level, totalSteps, shuffle = [str(i) for i in settings.split(" ")]
+        '''
+        make appropriate data types from string
+        '''
+
         tsk_scale2 = int(tsk_scale2)
         tsk_scale1 = int(tsk_scale1)
         noise_level = float(noise_level)
         totalSteps = int(totalSteps)
         
+        '''
+        send parameters to server
+        and receive etalone matrixes (in string)
+        from server
+        '''
         await websocket.send(settings)
         tsk = await websocket.recv()
 
-
+        '''
+        parse etalone matrixes 
+        '''
         numbers = parsing_numbers(bytes(tsk,"utf-8"), etal_scale1*tsk_scale1,etal_scale2*tsk_scale2)
 
         for i in range(0, totalSteps):
-            await websocket.send('Ready')              # Send the message Ready to start completing the task, Receive a problem in the form
+            await websocket.send('Ready')
+            '''
+            receive task from server
+            and parse task
+            '''
             task = await websocket.recv()
-            x = bytes(task,'utf-8')
-            task = parsing_task(x,etal_scale1*tsk_scale1,etal_scale2*tsk_scale2)
+            task = parsing_task(bytes(task,'utf-8'),etal_scale1*tsk_scale1,etal_scale2*tsk_scale2)
+            '''
+            main part of our prorgamm
+            regognize numbers
+            '''
             res = str(recognition(task, noise_level, tsk_scale1, tsk_scale2, numbers))
             await websocket.send(str(STEP) + " " + res)
-            print(f"< {await websocket.recv()}")               #  Receive a response in the form [step] answerj
+
+            '''
+            receive answers from server 
+            '''
+            print(f"< {await websocket.recv()}")              
 
 
-        await websocket.send("Bye")               # Otherwise, send Bye
+        await websocket.send("Bye")
+        '''
+        receive result from server
+        '''
         print(f"< {await websocket.recv()}")
 
 asyncio.get_event_loop().run_until_complete(hello())
