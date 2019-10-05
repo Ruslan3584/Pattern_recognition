@@ -66,7 +66,10 @@ def delta_loss(heatmap, delta):
     metric delta_loss (delta > 0)
     '''
     for i in range(0,len(heatmap)-delta+1):
-        result.append(sum(heatmap[i:i+delta]))
+        if (i - delta) < 0:
+            result.append(sum(heatmap[i:i+delta]))
+        else:
+            result.append(sum(heatmap[i-delta:i+delta]))
     return np.argmax(result)
 
 
