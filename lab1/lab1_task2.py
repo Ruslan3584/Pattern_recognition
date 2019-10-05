@@ -139,6 +139,8 @@ async def hello():
 
         response = await websocket.recv()
         print(response)
+if __name__ == "__main__":
+    asyncio.get_event_loop().run_until_complete(hello())
 asyncio.get_event_loop().run_until_complete(hello())
 
 
