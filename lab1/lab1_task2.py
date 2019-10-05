@@ -2,105 +2,102 @@ import asyncio
 import websockets
 import numpy as np
 
-
-def parsing_numbers(f,etal_scale1,etal_scale2):
-    f = np.fromstring(f, dtype=int, sep='\n')
-    f = np.delete(f, 0)
-    c = list(range(etal_scale1*etal_scale2,len(f),(etal_scale1*etal_scale2)+1 ))    # indexes of digits
-    f = np.delete(f, c)                                                             # deleting digits
-    c = list(range(0,len(f)+etal_scale1*etal_scale2 ,etal_scale1*etal_scale2))
-    numbers = []
-    for i in range(0,len(c)-1):
-        numbers.append(f[c[i]:c[i+1]].reshape((etal_scale1,etal_scale2)))
-    return numbers      # return etalone_matrixes
+def parsing_heatmap(x):
+	'''
+	make np.array from string and then normalize received heatmap
+	'''
+    heatmap = np.array(x[x.find("\n")+1:].split(" "),dtype = 'float64')
+    heatmap = heatmap/np.sum(heatmap)              
+    return heatmap
 
 
-
-def parsing_task(x):     # the function which parses task-matrix which has to be recognized
-    x = str(x)
-    global STEP
-    STEP = x[2:x.find("n")-1]          # starting from looking for first "n" and spliting "\\n"
-    x = x[x.find("n")+1:].split("\\n")
-    x = list(x)
-    x[-1] = x[-1][:-1]        # deleting last symbol " ' "  
-    g = []
-    for i in x:
-        g.append([int(i) for i in i.split(" ")])         # adding and spliting by " " every row in task-matrix
-    return np.array(g)           # creating numpy array from g
+def search_k(heatmap):
+	'''
+	metric L1 (|d-d*|)
+	'''
+    for i in range(1,len(heatmap)):                             
+        if sum(heatmap[:i]) >= 0.5:
+            return i-1
 
 
-
-
-
-
-
-
-def recognition(task,noise_level, tsk_scale1, tsk_scale2, numbers):        
+def delta_loss(heatmap, delta):
+	'''
+	metric delta_loss (delta > 0)
+	'''
     result = []
-    for i in numbers:
-        d = []
-        noise = np.bitwise_xor(i, task)            # Xoring matrixes ( task + etalone_matr) 
-        
-        noise = noise.reshape(1, noise.shape[0]*noise.shape[1])         # reshape noise (from matr to vector)
-        
-        for j in range(0, noise.shape[0]*noise.shape[1]):           
-            if noise[0][j] == 0:
-                d.append(1-noise_level)
-            else:
-                d.append(noise_level)
-                '''
-                log(.) is a monotonic function,
-                k* = argmax(f) =>  k* = argmax(log(f))
-                Used log(.) for better performance
-
-                '''
-        result.append(np.sum(np.log10(d)))              
-    
-    return np.argmax(result)           # returning  index of our guesses
-
-
-
-
+    for i in range(0,len(heatmap)-delta+1):
+        result.append(sum(heatmap[i:i+delta]))
+    return np.argmax(result)
 
 
 
 async def hello():
-    uri = "wss://sprs.herokuapp.com/first/task2"     # task2 - session id
+	'''
+	main function for interaction with server
+	'''
+	uri = "wss://sprs.herokuapp.com/second/task2"
+	async with websockets.connect(uri) as websocket:
+		'''
+		input parameters from server
+		'''
+		settings = input("   [width] [loss] [totalSteps] [repeats]  ")
+		width,loss,totalSteps,repeats = [i for i in settings.split(" ")]
+		'''
+        transform parameters from string to integer
+        '''
+		width = int(width)
+		totalSteps = int(totalSteps)
+		repeats = int(repeats)
+		
+		'''
+        send parameters to server
+		'''
 
-    async with websockets.connect(uri) as websocket:
-        message = "Let's start"
-        await websocket.send(message)
-        tsk = await websocket.recv()           # Receiving a string [width] [height] [Number_of_etalone_matrixes] from the server
-        print(tsk)
+		await websocket.send(f"Let's start with {width} {loss} {totalSteps} {repeats}" )
+		response = await websocket.recv()
+       
+		for i in range(1,totalSteps+1):
+			await websocket.send("Ready")
 
-        global etal_scale1,etal_scale2             # etal_scale1,etal_scale2 - shapes of etalone-matrixes
-        etal_scale2, etal_scale1, Number_of_etalone_matrixes = [int(i) for i in tsk.split(" ")]           # Number_of_etalone_matrixes - number of etalone-matrixes
+			'''
+            receive heatmap from server
+            '''
 
-        settings = input("Settings:   [width] [height] [noise] [totalSteps] [shuffle] ")
-        
-        tsk_scale2, tsk_scale1, noise_level, totalSteps, shuffle = [str(i) for i in settings.split(" ")]          # these parameters were discribed in documentation
-        tsk_scale2 = int(tsk_scale2)
-        tsk_scale1 = int(tsk_scale1)
-        noise_level = float(noise_level)
-        totalSteps = int(totalSteps)
-        
-        await websocket.send(settings)
-        tsk = await websocket.recv()
+			response = await websocket.recv()
 
+			'''
+            parse and normalize (!) received heatmap 
+            '''
 
-        numbers = parsing_numbers(bytes(tsk,"utf-8"), etal_scale1*tsk_scale1,etal_scale2*tsk_scale2)
+			heatmap = parsing_heatmap(response)
 
-        for i in range(0, totalSteps):
-            await websocket.send('Ready')              # Send the message Ready to start completing the task, Receive a problem in the form
-            task = await websocket.recv()
-            x = bytes(task,'utf-8')
-            task = parsing_task(x)
-            res = str(recognition(task, noise_level, tsk_scale1, tsk_scale2, numbers))
-            await websocket.send(STEP + " " + res)
-            print(f"< {await websocket.recv()}")               #  Receive a response in the form [step] answerj
+			'''
+            our answer depends on metric (L1 or delta loss (d > 0))
+            '''
+			if(loss == "L1"):
+				res = search_k(heatmap)
+			else:
+				loss = int(loss)
+				res = delta_loss(heatmap,loss)
+			res = str(res) + " "
 
+			'''
+			send answer repeats times 
+			'''
+			res = (res*repeats)[:-1]
 
-        await websocket.send("Bye")               # Otherwise, send Bye
-        print(f"< {await websocket.recv()}")
+			'''
+			send res to server
+			'''
+			await websocket.send(str(i)+"\n" +res)
+			response = await websocket.recv()
+			print(response)
 
+		await websocket.send("Bye")
+		'''
+		receive results from server 
+		'''
+
+		response = await websocket.recv()
+		print(response)
 asyncio.get_event_loop().run_until_complete(hello())
