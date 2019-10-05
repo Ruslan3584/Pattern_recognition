@@ -31,8 +31,8 @@ def search_k(heatmap):
 
     '''
     check function
-    >>> search_k(np.array([1,2,3]))
-    0
+    >>> search_k(np.array([0.1,0.4,0.3]))
+    1
     >>> search_k('qqq')
     Traceback (most recent call last):
     ...
