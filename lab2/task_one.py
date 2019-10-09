@@ -2,8 +2,6 @@ import numpy as np
 
 
 def partial_sum(a, m, n):
-    # print("original\n", a)
-    # print("area\n", a[m:n])
 
     '''
 
@@ -23,7 +21,8 @@ def partial_sum(a, m, n):
     Exception: ERROR, wrong parameters: m >= n 
 
     '''
-
+    # print("original\n", a)
+    # print("area\n", a[m:n])
     if m >= n:
         raise Exception("ERROR, wrong parameters: m >= n ")
     cum_a = a.cumsum(axis=0)
@@ -41,9 +40,6 @@ def partial_sum(a, m, n):
 
 
 def summed_area_table(a, m, n, i, j):
-    # print("original\n", a)
-    # print("area\n", a[m:n, i:j])
-
     '''
 
     returns partial area of array[m:n,i:j]
@@ -65,8 +61,9 @@ def summed_area_table(a, m, n, i, j):
     Exception: ERROR, wrong parameters: m >= n or i >= j 
 
     '''
-
-
+    # print("original\n", a)
+    # print("area\n", a[m:n, i:j])
+    
     # checking needed parameters for running function
     if m >= n or i >= j:
         raise Exception("ERROR, wrong parameters: m >= n or i >= j ")
@@ -89,10 +86,6 @@ def summed_area_table(a, m, n, i, j):
 
 
 def summed_volume_table(a, l, k, m, n, i, j):
-    # print("original\n", a, '\n')
-    # print("volume\n", a[l:k, m:n, i:j], '\n')
-
-
     '''
     returns partial area of array[l:k,m:n,i:j]
 
@@ -110,6 +103,8 @@ def summed_volume_table(a, l, k, m, n, i, j):
     TypeError: summed_volume_table() missing 6 required positional arguments: 'l', 'k', 'm', 'n', 'i', and 'j'
 
     '''
+    # print("original\n", a, '\n')
+    # print("volume\n", a[l:k, m:n, i:j], '\n')
     if l >= k or m >= n or i >= j:
         raise Exception("ERROR, wrong parameters: l >=k or m >= n or i >= j ")
     # calculating cumsum for three axis
