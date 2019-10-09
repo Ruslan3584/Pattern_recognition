@@ -135,29 +135,21 @@ def summed_volume_table(a, l, k, m, n, i, j):
     return s
 
 
-example_1 = np.array(range(0, 6))
+example_1 = np.random.randint(1, 50, (100))
 
-example_2 = np.array([[1, 2, 3, 4,  2],
-                      [3, 3, 5, 6,  3],
-                      [7, 8, 9, 10, 4],
-                      [4, 5, 3, 11, 0]])
+example_2 = np.random.randint(1, 50, (7,7))
 
-example_3 = np.array([[1, 2, 3, 4, 2, 3],
-                      [3, 3, 5, 6, 3, 5],
-                      [7, 8, 9, 5, 4, 7],
-                      [4, 5, 3, 1, 0, 1],
-                      [3, 7, 9, 8, 1, 4],
-                      [2, 5, 1, 7, 4, 6],
-                      [5, 1, 0, 1, 3, 7],
-                      [8, 4, 3, 2, 5, 6],
-                      [2, 3, 5, 6, 8, 1],
-                      [4, 6, 7, 1, 4, 9],
-                      [0, 2, 7, 8, 1, 5],
-                      [2, 3, 4, 6, 4, 2]], ndmin=3).reshape(3, 4, 6)
+example_3 = np.random.randint(1, 50, (5, 7, 8)) 
 
-one_dim = partial_sum(example_1, 2, 4)
+
+one_dim = partial_sum(example_1, 2, 50)
 print(one_dim)
-two_dim = summed_area_table(example_2, 1, 3, 1, 3)
+two_dim = summed_area_table(example_2, 0, 5, 1, 3)
 print(two_dim)
-three_dim = summed_volume_table(example_3,0,3,0,3,0,3)
+three_dim = summed_volume_table(example_3,0,5,0,5,1,4)
 print(three_dim)
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
+    
