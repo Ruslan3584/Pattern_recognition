@@ -4,8 +4,8 @@ import numpy as np
 def partial_sum(a, m, n):
     print("original\n", a)
     print("area\n", a[m:n])
-    if m >= n:
-        raise "ERROR, wrong parameters: m >= n "
+    assert (m <= n), ("ERROR, wrong parameters: m >= n ")
+    
     cum_a = a.cumsum(axis=0)
     print("cumsum \n", cum_a)
     s0 = cum_a[n - 1]
@@ -21,8 +21,8 @@ def summed_area_table(a, m, n, i, j):
     print("original\n", a)
     print("area\n", a[m:n, i:j])
 
-    if m >= n or i >= j:
-        raise "ERROR, wrong parameters: m >= n or i >= j "
+    assert(m <= n), ("ERROR, wrong parameters: m >= n  ")
+    assert(i <= j), ("ERROR, wrong parameters: i >= j ")
 
     cum_a = a.cumsum(axis=0).cumsum(axis=1)
     print("cumsum\n", cum_a)
@@ -46,8 +46,9 @@ def summed_volume_table(a, l, k, m, n, i, j):
     print("original\n", a, '\n')
     print("volume\n", a[l:k, m:n, i:j], '\n')
 
-    if l >= k or m >= n or i >= j:
-        raise "ERROR, wrong parameters: l >=k or m >= n or i >= j "
+    assert(m <= n), ("ERROR, wrong parameters: m >= n  ")
+    assert(i <= j), ("ERROR, wrong parameters: i >= j ")
+    assert(l <= k),("ERROR, wrong parameters: l >= k ")
 
     cum_a = a.cumsum(axis=0).cumsum(axis=1).cumsum(axis=2)
     print("cumsum\n", cum_a, '\n')
