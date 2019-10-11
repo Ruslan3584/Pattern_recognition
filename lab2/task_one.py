@@ -2,7 +2,6 @@ import numpy as np
 
 
 def partial_sum(cum_a, m, n):
-
     '''
 
     returns partial sum of array from m to n
