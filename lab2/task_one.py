@@ -14,6 +14,8 @@ def partial_sum(a, m, n):
     5
     >>> partial_sum(np.array(range(0, 6)),0,3)
     3
+    >>> partial_sum(np.array(range(0, 6)),0,6)
+    15
     >>> partial_sum(np.array(range(0, 6)),2,1)
     Traceback (most recent call last):
     ...
@@ -27,15 +29,17 @@ def partial_sum(a, m, n):
         raise Exception("ERROR, wrong parameters: m >= n ")
     cum_a = a.cumsum(axis=0)
 
-    cum_a[-1] = 0
+    z = np.zeros(len(a)+1)
+    z[1:] = cum_a
+    cum_a = z
 
     # print("cumsum \n", cum_a)
     # Inclusion-Exclusion principle for n = 1 dimension
-    s0 = cum_a[n - 1]
-    s1 = -cum_a[m - 1]
+    s0 = cum_a[n]
+    s1 = -cum_a[m]
     # print("np.sum = ", np.sum(a[m:n]))
 
-    s = s0 + s1
+    s = int(s0 + s1)
     return s
 
 
@@ -49,11 +53,11 @@ def summed_area_table(a, m, n, i, j):
 
     examples:
     >>> summed_area_table(np.array([[1, 2, 3, 4,  2],[3, 3, 5, 6,  3],[7, 8, 9, 10, 4],[4, 5, 3, 11, 0]]),1,3,1,3)
-    33
+    25
     >>> summed_area_table(np.array([[1, 2, 3, 4,  2],[3, 3, 5, 6,  3],[7, 8, 9, 10, 4],[4, 5, 3, 11, 0]]),0,3,0,3)
-    60
+    41
     >>> summed_area_table(np.array([[1, 2, 3, 4,  2],[3, 3, 5, 6,  3],[7, 8, 9, 10, 4],[4, 5, 3, 11, 0]]),0,3,1,3)
-    44
+    30
     >>> summed_area_table(np.array([[1, 2, 3, 4,  2],[3, 3, 5, 6,  3],[7, 8, 9, 10, 4],[4, 5, 3, 11, 0]]),0,3,3,1)
     Traceback (most recent call last):
     ...
@@ -72,6 +76,7 @@ def summed_area_table(a, m, n, i, j):
 
     zeros = np.zeros((cum_a.shape[0] + 1, cum_a.shape[1] + 1), dtype="int64")
     zeros[1:, 1:] = cum_a
+    cum_a = zeros
 
     # print("cumsum\n", cum_a)
     # Inclusion-Exclusion principle for n = 2 dimensions
