@@ -37,6 +37,8 @@ def simple_partial_sum(array,m,n):
     examples:
     >>> simple_partial_sum(np.array([0,1,3,6,10,15]),0,6)
     35
+    >>> simple_partial_sum(np.array([0,1,3,6,10,15]),2,6)
+    34
     >>> simple_partial_sum(np.array([0,1,3,6,10,15]),3,0)
     Traceback (most recent call last):
     ...
@@ -91,6 +93,8 @@ def simple_summed_area_table(array,m,n,i,j):
     examples:
     >>> simple_summed_area_table(np.array([[1,3,6,10,12],[4,9,17,27,32],[11,24,41,61,70],[15,33,53,84,93]]),0,4,0,5)
     606
+    >>> simple_summed_area_table(np.array([[1,3,6,10,12],[4,9,17,27,32],[11,24,41,61,70],[15,33,53,84,93]]),1,4,2,5)
+    478
     >>> simple_summed_area_table(np.array([[1,3,6,10,12],[4,9,17,27,32],[11,24,41,61,70],[15,33,53,84,93]]),0,3,3,1)
     Traceback (most recent call last):
     ...
@@ -140,6 +144,8 @@ def simple_summed_volume_table(array,l,k,m,n,i,j):
     '''
     calculate summed_volume_table using standart np.sum() function
     examples:
+    >>> simple_summed_volume_table(np.array([[[1,3,6,10],[3,8,14,21],[8,19,28,40]],[[8,18,30,39],[14,34,53,70],[22,49,71,94]],[[11,28,49,66],[18,49,79,109],[27,72,109,151]]]),0,3,1,4,1,4)
+    1070
     >>> simple_summed_volume_table(np.array([[[1,3,6,10],[3,8,14,21],[8,19,28,40]],[[8,18,30,39],[14,34,53,70],[22,49,71,94]],[[11,28,49,66],[18,49,79,109],[27,72,109,151]]]))
     Traceback (most recent call last):
     ...
