@@ -31,6 +31,26 @@ def partial_sum(cum_a, m, n):
     return s0 + s1
 
 
+def simple_partial_sum(array,m,n):
+    '''
+    calculate partial_sum using standart np.sum() function 
+    examples:
+    >>> simple_partial_sum(np.array([0,1,3,6,10,15]),0,6)
+    35
+    >>> simple_partial_sum(np.array([0,1,3,6,10,15]),3,0)
+    Traceback (most recent call last):
+    ...
+        raise Exception("ERROR, wrong parameters: m >= n ")
+    Exception: ERROR, wrong parameters: m >= n 
+    '''
+    if m >= n:
+        raise Exception("ERROR, wrong parameters: m >= n ")
+    # made needed slice from array and summed it
+    res = np.sum(array[m:n])
+    return res
+
+
+
 def summed_area_table(cum_a, m, n, i, j):
     '''
     returns summed area table of array[m:n,i:j]
@@ -53,7 +73,6 @@ def summed_area_table(cum_a, m, n, i, j):
     Exception: ERROR, wrong parameters: m >= n or i >= j 
     '''
 
-    
     # checking needed parameters for running function
     if m >= n or i >= j:
         raise Exception("ERROR, wrong parameters: m >= n or i >= j ")
@@ -65,6 +84,25 @@ def summed_area_table(cum_a, m, n, i, j):
     s3 = cum_a[m, i]
 
     return so + s1 + s2 + s3
+
+def simple_summed_area_table(array,m,n,i,j):
+    '''
+    calculate summed_area_table using standart np.sum() function
+    examples:
+    >>> simple_summed_area_table(np.array([[1,3,6,10,12],[4,9,17,27,32],[11,24,41,61,70],[15,33,53,84,93]]),0,4,0,5)
+    606
+    >>> simple_summed_area_table(np.array([[1,3,6,10,12],[4,9,17,27,32],[11,24,41,61,70],[15,33,53,84,93]]),0,3,3,1)
+    Traceback (most recent call last):
+    ...
+        raise Exception("ERROR, wrong parameters: m >= n or i >= j ")
+    Exception: ERROR, wrong parameters: m >= n or i >= j 
+    '''
+    if m >= n or i >= j:
+        raise Exception("ERROR, wrong parameters: m >= n or i >= j ")
+    # made needed slice from 2d-array and summed it 
+    res = np.sum(array[m:n,i:j])
+    return res
+
 
 
 def summed_volume_table(cum_a, l, k, m, n, i, j):
@@ -96,6 +134,22 @@ def summed_volume_table(cum_a, l, k, m, n, i, j):
     s7 = -cum_a[l, m, i]
     
     return s0 + s1 + s2 + s3 + s4 + s5 + s6 + s7
+
+
+def simple_summed_volume_table(array,l,k,m,n,i,j):
+    '''
+    calculate summed_volume_table using standart np.sum() function
+    examples:
+    >>> simple_summed_volume_table(np.array([[[1,3,6,10],[3,8,14,21],[8,19,28,40]],[[8,18,30,39],[14,34,53,70],[22,49,71,94]],[[11,28,49,66],[18,49,79,109],[27,72,109,151]]]))
+    Traceback (most recent call last):
+    ...
+    TypeError: simple_summed_volume_table() missing 6 required positional arguments: 'l', 'k', 'm', 'n', 'i', and 'j'
+    '''
+    if l >= k or m >= n or i >= j:
+        raise Exception("ERROR, wrong parameters: l >=k or m >= n or i >= j ")
+    # made needed slice from 3d array and summed it 
+    res = np.sum(array[l:k,m:n,i:j])
+    return res
 
 def adding_zeros(cum_a):
     """
