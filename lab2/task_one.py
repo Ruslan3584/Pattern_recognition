@@ -161,11 +161,7 @@ def adding_zeros(cum_a):
     """
     returns cum_a with added zero rows and columns in order to exclude special cases( for example: m == 0, n == 0, and so on) 
     """
-    new_shape = tuple(np.array(cum_a.shape) + np.array( [1]*len(cum_a.shape) ))
-    zeros = np.zeros(new_shape, dtype="int64")
-    d = 'zeros{}'.format("[" +",".join(  ['1:']*len(cum_a.shape)  ) + "]")
-    exec(d +'=cum_a')
-    return zeros
+    return np.pad(cum_a, (1,0), 'constant', constant_values=0)
 
 example_1 = np.random.randint(1, 50, (100))
 cum_example_1 = adding_zeros(example_1.cumsum(axis=0))
