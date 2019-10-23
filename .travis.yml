@@ -7,3 +7,4 @@ install:
   - pip3 install asyncio websockets numpy 
 
 script: python -m  doctest -v  lab1/lab1_task2.py
+        python -m doctest -v lab2/task_one.py 
