@@ -38,17 +38,23 @@
 import numpy as np
 
 
-# In[113]:
+# In[150]:
 
 
-n = 10 #int(input("Input n: "))
+n = 3 #int(input("Input n: "))
 histogram = np.random.randint(0,100,n)
 histogram = histogram/np.sum(histogram)
 
 
+# In[ ]:
+
+
+
+
+
 # 2. Написать генератор чисел из определённого пользователем набора из n чисел и соответствующей гистограммы—генерируетечислоиз [0;1),считаете cumulative sum для гистограммы,ивыбираете первую из тех ячеек гистограммы, значение в которой больше сгенерированного числа
 
-# In[114]:
+# In[151]:
 
 
 g = np.random.uniform(0,1)
@@ -64,7 +70,7 @@ for i in range(1,len(histogram)):
 
 # ### Квадратична w(k, k') = (k - k')^2
 
-# In[115]:
+# In[152]:
 
 
 r = []
@@ -79,14 +85,14 @@ print(np.argmin(s))
 
 # ### Бінарна w(k, k') = 1(k != k')
 
-# In[116]:
+# In[153]:
 
 
 def indicator(i,j):
     return i == j
 
 
-# In[117]:
+# In[154]:
 
 
 r = []
@@ -97,6 +103,28 @@ for i in range(len(histogram)):
     s.append(np.sum(r))
     r = []
 print(np.argmin(s))
+
+
+# ### И для стратегии, которую рассмотрели в аудитории (не забудьте, что она требует параметр, который в аудитории назвали α)
+
+# In[163]:
+
+
+alpha = 0
+r = []
+s = []
+for i in range(len(histogram)):
+    for k in range(len(histogram)):
+        r.append(histogram[k]*(k-i)**2)
+    s.append(np.sum(r)- alpha*histogram[i])
+    r = []
+print(np.argmin(s))
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
