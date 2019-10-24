@@ -32,16 +32,17 @@
 # --------------------------
 # 1. Написать генератор гистограмм на n значений (число n определяет пользователь) — просто генерируете n чисел и делите каждую ячейку на их исходную сумму
 
-# In[74]:
+# In[1]:
 
 
 import numpy as np
+import progressbar
 
 
-# In[150]:
+# In[2]:
 
 
-n = 3 #int(input("Input n: "))
+n = 10 #int(input("Input n: "))
 histogram = np.random.randint(0,100,n)
 histogram = histogram/np.sum(histogram)
 
@@ -54,7 +55,7 @@ histogram = histogram/np.sum(histogram)
 
 # 2. Написать генератор чисел из определённого пользователем набора из n чисел и соответствующей гистограммы—генерируетечислоиз [0;1),считаете cumulative sum для гистограммы,ивыбираете первую из тех ячеек гистограммы, значение в которой больше сгенерированного числа
 
-# In[151]:
+# In[3]:
 
 
 g = np.random.uniform(0,1)
@@ -70,61 +71,87 @@ for i in range(1,len(histogram)):
 
 # ### Квадратична w(k, k') = (k - k')^2
 
-# In[152]:
+# In[4]:
 
 
-r = []
-s = []
-for i in range(len(histogram)):
-    for k in range(len(histogram)):
-        r.append(histogram[k]*(k-i)**2)
-    s.append(np.sum(r))
-    r = []
-print(np.argmin(s))
+def quadratic(histogram):
+    s = np.empty([len(histogram),1])
+    k = np.array(range(len(histogram)))
+    for i in range(len(histogram)):
+        s[i] = (np.sum(histogram*(k-i)**2))
+    return np.argmin(s)
 
 
-# ### Бінарна w(k, k') = 1(k != k')
-
-# In[153]:
+# In[5]:
 
 
-def indicator(i,j):
-    return i == j
-
-
-# In[154]:
-
-
-r = []
-s = []
-for i in range(len(histogram)):
-    for k in range(len(histogram)):
-        r.append(histogram[k]*indicator(k,i))
-    s.append(np.sum(r))
-    r = []
-print(np.argmin(s))
-
-
-# ### И для стратегии, которую рассмотрели в аудитории (не забудьте, что она требует параметр, который в аудитории назвали α)
-
-# In[163]:
-
-
-alpha = 0
-r = []
-s = []
-for i in range(len(histogram)):
-    for k in range(len(histogram)):
-        r.append(histogram[k]*(k-i)**2)
-    s.append(np.sum(r)- alpha*histogram[i])
-    r = []
-print(np.argmin(s))
+quadratic(histogram)
 
 
 # In[ ]:
 
 
 
+
+
+# ### Бінарна w(k, k') = 1(k != k')
+
+# In[6]:
+
+
+def indicator(i,j):
+    return i == j
+
+
+# In[7]:
+
+
+def binary(histogram):
+    s = np.empty([len(histogram),1])
+    k = np.array(range(len(histogram)))
+    for i in range(len(histogram)):
+        s[i] = np.sum(histogram*indicator(k,i))
+    return np.argmin(s)
+
+
+# ### И для стратегии, которую рассмотрели в аудитории (не забудьте, что она требует параметр, который в аудитории назвали α)
+
+# In[8]:
+
+
+def third(histogram,alpha=0):
+    s = np.empty([len(histogram),1])
+    k = np.array(range(len(histogram)))
+    for i in range(len(histogram)):
+        s[i] = (np.sum(histogram*(k-i)**2) -alpha*histogram[i])
+    return np.argmin(s)
+
+
+# ### 4. Реализовать функции, которые считают приблизительный риск для двух функций потерь (бинарная и квадратичная) 
+# 
+#   + на вход подаётся набор чисел и лучший ответ от какой-либо стратегии 
+#   + внутри генерируется несколько миллионов или миллиардов чисел из набора согласно гистограмме
+#   + считаются штрафы, умножаются на соответствующие им вероятности, и складываются
+#   + на выход даётся полученное значение 
+# 
+
+# In[9]:
+
+
+quadraticf = np.empty([10**6,1])
+binaryf =  np.empty([10**6,1])
+for i in progressbar.progressbar(range(10**6)):
+    histogram = np.random.randint(0,100,n)
+    histogram = histogram/np.sum(histogram)
+    quadraticf[i] = quadratic(histogram)
+    binaryf[i] = binary(histogram)
+
+
+# In[11]:
+
+
+print(np.mean(quadraticf))
+print(np.mean(binaryf))
 
 
 # In[ ]:
