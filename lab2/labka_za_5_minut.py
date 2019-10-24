@@ -83,7 +83,7 @@ print(np.argmin(s))
 
 
 def indicator(i,j):
-    return 1 if i == j else 0
+    return i == j
 
 
 # In[117]:
