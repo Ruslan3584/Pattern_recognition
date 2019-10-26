@@ -4,7 +4,7 @@ python:
   - "3.7.4"
 
 install:
-  - pip3 install asyncio websockets numpy 
+  - pip3 install asyncio websockets numpy progressbar
 
 script: 
   - python -m  doctest -v  lab1/lab1_task2.py
