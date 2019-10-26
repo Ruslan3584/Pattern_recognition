@@ -43,7 +43,7 @@ def generator(histogram,uniform):
     '''
     'generator' function gets histogram and random number [from 0 to 1)
     calculates cumulative sum for histogram 
-    and returns the first index at which the value is greater than random number ~(Union(0,1])
+    and returns the first index at which the value is greater than random number ~(Uniform(0,1])
 
     examples:
     >>> generator(np.array([0.06175299, 0.11752988, 0.1812749 , 0.14940239, 0.1374502 ,0.11155378, 0.0438247 , 0.12350598, 0.02390438, 0.0498008 ]),0.5)
@@ -58,9 +58,7 @@ def generator(histogram,uniform):
     if uniform < 0:
     	raise Exception("uniform < 0")
     cum_hist = np.cumsum(histogram, axis=0)
-    for i in range(1,len(histogram)):                             
-            if cum_hist[i] >= uniform:
-                return i-1
+    return np.where(cum_hist > g)[0][0] -1 
 
 
 def quadratic(K,histogram):
