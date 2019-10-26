@@ -58,7 +58,7 @@ def generator(histogram,uniform):
     if uniform < 0:
     	raise Exception("uniform < 0")
     cum_hist = np.cumsum(histogram, axis=0)
-    return np.where(cum_hist > g)[0][0] -1 
+    return np.where(cum_hist >= uniform)[0][0] -1 
 
 
 def quadratic(K,histogram):
