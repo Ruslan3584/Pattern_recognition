@@ -13,26 +13,25 @@ def set_parameters(size):
     K = np.array([int(i) for i in K])
     return K
 
-def set_histogram(size,seed=135):
+def set_histogram(size,n_seed):
     '''
     create histogrmam len = size
-    default seed = 135
    
     examples:
     >>> set_histogram(10,30)
     array([0.11671924, 0.11671924, 0.14195584, 0.14195584, 0.03785489,
            0.07255521, 0.00630915, 0.16719243, 0.05362776, 0.14511041])
-    >>> set_histogram(10)
-    array([0.06175299, 0.11752988, 0.1812749 , 0.14940239, 0.1374502 ,
-           0.11155378, 0.0438247 , 0.12350598, 0.02390438, 0.0498008 ])
+    >>> set_histogram(10,5)
+    array([0.18539326, 0.14606742, 0.11423221, 0.02996255, 0.13670412,
+           0.01498127, 0.11610487, 0.0505618 , 0.05617978, 0.14981273])
     >>> set_histogram(-10,30)
     Traceback (most recent call last):
     ...
     Exception: size <= 0
     '''
     if size <= 0:
-    	raise Exception("size <= 0")
-    np.random.seed(seed)
+      raise Exception("size <= 0")
+    np.random.seed(n_seed)
     histogram = np.random.randint(0,100,size)   # change value of seed if you want to get new histogram
     histogram = histogram/np.sum(histogram)  # normilizing of histogram
     return histogram
@@ -56,7 +55,11 @@ def generator(histogram,uniform):
     if uniform <= 0:
         raise Exception("uniform <= 0")
     cum_hist = np.cumsum(histogram, axis=0)
-    return np.where(cum_hist >= uniform)[0][0] -1
+    return np.where(cum_hist >= uniform)[0][0] -1 
+
+
+
+
 
 
 
@@ -173,7 +176,7 @@ def mean_quad_bin(K,size,N=10**4):
     for i in range(N):
         
 
-        histogram = set_histogram(size,np.random.seed(np.random.randint(100)))   # generating new histogram
+        histogram = set_histogram(size,np.random.randint(100)) # generating new histogram
         
         q_q = quadratic(K,histogram)             # strategy for quadratic loss func
         q_b = binary(K,histogram)                # strategy for binary loss func
@@ -193,7 +196,7 @@ def third_mean_q(K,alpha,size,N=10**4):
     thirdf = np.empty((N, ))
     
     for i in range(N):
-        histogram = set_histogram(size,np.random.seed(np.random.randint(100)))  # generating histogram
+        histogram = set_histogram(size,np.random.randint(100))# generating histogram
         
         q = third(K,histogram,alpha)  # calculating the strategy for 'third' func
         
@@ -208,7 +211,7 @@ def third_mean_b(K,alpha,size,N=10**4):
     '''
     thirdf = np.empty((N, ))
     for i in range(N):
-        histogram = set_histogram(size,np.random.seed(np.random.randint(100)))  # generating histogram
+        histogram = set_histogram(size,np.random.randint(100))  # generating histogram
         
         q = third(K,histogram,alpha)  # calculating the strategy for 'third' func
         
@@ -240,8 +243,8 @@ def plotting_R_quadratic(alpha,R_quadratic):
     Returns plot which shows how risk changes with different alpha.
     '''
     plt.plot(alpha, R_quadratic)
-    plt.xlabel('alpha')
-    plt.ylabel('R_quadratic')
+    plt.xlabel(r"$\alpha$")
+    plt.ylabel('$R_{quadratic}$')
     plt.show()
 
 
@@ -252,8 +255,8 @@ def plotting_R_binary(alpha,R_binary):
     Returns plot which shows how risk changes with different alpha.
     '''
     plt.plot(alpha,R_binary)
-    plt.xlabel('alpha')
-    plt.ylabel('R_binary')
+    plt.xlabel(r"$\alpha$")
+    plt.ylabel('$R_{binary}$')
     plt.show()
 
 
@@ -262,7 +265,7 @@ def plotting_R_binary(alpha,R_binary):
 n = 10 #int(input("Input n: "))
 K = np.array([3,5,6,8,10,2,0,4,7,9])
 
-histogram = set_histogram(n,np.random.seed(np.random.randint(100)))
+histogram = set_histogram(n,np.random.randint(100))
 
 
 #n = int(argv[1])
