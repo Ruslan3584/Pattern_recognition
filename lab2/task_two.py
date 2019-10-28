@@ -296,3 +296,8 @@ alpha = np.linspace(-50,50,15)  # list of alpha values needed for checking quadr
 
 #plotting_R_quadratic(alpha, m[1]) # mean_R_quadratic
 #plotting_R_binary(alpha,m[0]) # mean_R_binary
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
+    
