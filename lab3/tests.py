@@ -64,10 +64,10 @@ def upscale(array,  scale_1, scale_2):
     array([[1, 1, 2, 2],
            [1, 1, 2, 2],
            [2, 2, 4, 4],
-           [2, 2, 4, 4]], dtype=int64)
+           [2, 2, 4, 4]])
     >>> upscale(np.array([[1,2,3],[2,4,8]]), 1,1)
     array([[1, 2, 3],
-           [2, 4, 8]], dtype=int64)
+           [2, 4, 8]])
     '''
     if scale_1<=0 or scale_2<=0:
         raise Exception("wrong scales")
