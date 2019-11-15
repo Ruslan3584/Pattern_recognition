@@ -1,27 +1,33 @@
 import numpy as np
 
-def checking(probab_array, digit):
+def checking(a):
     '''
-    args: probab_array - array of probabilities 
-          digit - number which we have to check of dividing
-
+    args:  a - list of probabilities, len(a) = 9*t, where t is number of digits
+    
     examples:
-    >>> checking(np.arange(10),3)
+    >>> checking(np.array([0.08695652, 0.03933747, 0.14285714, 0.12836439, 0.10144928,0.0952381 , 0.13664596, 0.01656315, 0.04968944, 0.20289855]))
     True
-    >>> checking(np.arange(10),2)
+    >>> checking(np.array([0.11848341, 0.10900474, 0.1943128 , 0.22037915, 0.06872038,0.08530806, 0.00473934, 0.06635071, 0.09952607, 0.03317536]))
     False
-    >>> checking(np.arange(10),0)
+    >>> checking([])
     Traceback (most recent call last):
     ...
-    Exception: wrong digit
+    Exception: a is empty
     '''
-    if digit <=0:
-        raise Exception("wrong digit")
-    guess = np.argmax(probab_array)
-    if guess%digit == 0:
+    if len(a)==0:raise Exception("a is empty")
+    k1 = [] # - множина тих k які дільться на 3 з остачею 
+    k2 = [] # - множина тих k які дільться на 3 без остачі
+    for i in range(len(a)):
+        if i%3 == 0:
+            k2.append(a[i])  
+        if i%3 != 0:
+            k1.append(a[i])
+
+    if sum(k2) >= sum(k1):  # стратегія: в залежності від сум приймаємо рішення
         return True
     else:
         return False
+
 
 
 def generate_histogram():
