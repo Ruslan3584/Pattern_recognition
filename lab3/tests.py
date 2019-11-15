@@ -24,19 +24,21 @@ def checking(probab_array, digit):
         return False
 
 
-def set_histogram(n_seed):
+def generate_histogram():
     '''
     create histogrmam len = 10
    
     examples:
-    >>> set_histogram(30)
+    >>> np.random.seed(30)
+    >>> generate_histogram()
     array([0.11671924, 0.11671924, 0.14195584, 0.14195584, 0.03785489,
            0.07255521, 0.00630915, 0.16719243, 0.05362776, 0.14511041])
-    >>> set_histogram(5)
+    >>> np.random.seed(5)
+    >>> generate_histogram()
     array([0.18539326, 0.14606742, 0.11423221, 0.02996255, 0.13670412,
            0.01498127, 0.11610487, 0.0505618 , 0.05617978, 0.14981273])
     '''
-    np.random.seed(n_seed)
+    #np.random.seed(n_seed)
     histogram = np.random.randint(0,100,10)   # change value of seed if you want to get new histogram
     histogram = histogram/np.sum(histogram)  # normilizing of histogram
     return histogram
