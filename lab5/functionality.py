@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 #Доров отец
 
-sample= np.load('tmp.npy')  # завантаження бінарізованого датасету
+sample= np.load('lab5/tmp.npy')  # завантаження бінарізованого датасету
 
 def display(imageAsArray): 
     '''
