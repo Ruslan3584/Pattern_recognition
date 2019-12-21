@@ -11,3 +11,4 @@ script:
   - python -m doctest -v lab2/task_one.py
   - python -m doctest -v lab2/task_two.py
   - python -m doctest -v lab3/tests.py
+  - python -m doctest -v lab5/functionality.py
