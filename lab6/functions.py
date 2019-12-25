@@ -67,8 +67,9 @@ def split_data(data,a,b,r):
     '''
     if r <= 0:
         raise Exception('radius less or equal to zero')
-    in_circle = data[(data[:,2]- a)**2 + (data[:,3] - b)**2 < r**2 ]
-    out_circle = data[(data[:,2]- a)**2 + (data[:,3] - b)**2 > r**2 ]
+    data_filter = (data[:,2]- a)**2 + (data[:,3] - b)**2
+    in_circle = data[data_filter < r**2 ]
+    out_circle = data[data_filter > r**2 ]
     if len(in_circle) == 0:
         raise Exception('there is no points inside the circle')
     # reverse inside_points
