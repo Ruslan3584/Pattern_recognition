@@ -67,22 +67,15 @@ def split_data(data,a,b,r):
     '''
     if r <= 0:
         raise Exception('radius less or equal to zero')
-    in_circle = []
-    out_circle = []
-    for i in range(len(data)):
-        if (data[i][2] - a)**2 + (data[i][3] - b)**2 < r**2 :
-            in_circle.append(data[i])
-
-        elif (data[i][2] - a)**2 + (data[i][3] - b)**2 > r**2  :
-            out_circle.append(data[i])
+    in_circle = data[(data[:,2]- a)**2 + (data[:,3] - b)**2 < r**2 ]
+    out_circle = data[(data[:,2]- a)**2 + (data[:,3] - b)**2 > r**2 ]
     if len(in_circle) == 0:
         raise Exception('there is no points inside the circle')
     # reverse inside_points
-    in_circle = -np.array(in_circle)
+    in_circle = -in_circle
     # add additional point to avoid 'divide by zero' problem
     in_circle = np.vstack((in_circle,np.array([0,1,0,0])))
     # combine one array 
-    out_circle = np.array(out_circle)
     s = np.vstack((in_circle,out_circle))
     return s
 
