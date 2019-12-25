@@ -1,7 +1,7 @@
 # Pattern_recognition
 Labs
 
-[![Build Status](https://travis-ci.org/Ruslan3584/Pattern_recognition.svg?branch=master)](https://travis-ci.org/Ruslan3584/Pattern_recognition)
+[![Build Status](https://travis-ci.com/Ruslan3584/Pattern_recognition.svg?token=j9Kqn8jNSznud7EAtsqm&branch=master)](https://travis-ci.com/Ruslan3584/Pattern_recognition)
 
 # lab1
 
