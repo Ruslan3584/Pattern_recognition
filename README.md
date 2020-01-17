@@ -2,6 +2,8 @@
 
 University course KPI IPT 2019y
 
+`All needed tasks described in all-labs.pdf file`
+
 Labs
 
 [![Build Status](https://travis-ci.com/Ruslan3584/Pattern_recognition.svg?token=j9Kqn8jNSznud7EAtsqm&branch=master)](https://travis-ci.com/Ruslan3584/Pattern_recognition)
