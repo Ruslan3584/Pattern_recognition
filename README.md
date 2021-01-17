@@ -3,7 +3,9 @@
 
 University course KPI IPT 2019y
 
-`All needed tasks described in all-labs.pdf file`
+`All needed tasks described in all-labs.pdf files`
+
+`Solutions described in solved-tasks.pdf files`
 
 Labs
 
