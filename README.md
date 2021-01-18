@@ -19,8 +19,7 @@ University course KPI IPT 2019y
 # lab4 - DP algorithm for chain-structured graphical models
 ### Binocular stereo vision
 **_NOTE:_**  Source of images - http://vision.middlebury.edu/stereo/data/
-# lab5 EM Algorithm for Binary Clustering
-## EM Algorithm for Binary Clustering
+# lab5 - EM Algorithm for Binary Clustering
 ### Binary image clustering (mnist dataset)
 
 # lab6 - Modification of a Perceptron Algorithm
