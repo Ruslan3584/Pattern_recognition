@@ -1,42 +1,27 @@
-# Pattern_recognition
+# Pattern Recognition
 [![Build Status](https://travis-ci.com/Ruslan3584/Pattern_recognition.svg?token=j9Kqn8jNSznud7EAtsqm&branch=master)](https://travis-ci.com/Ruslan3584/Pattern_recognition)
 
 University course KPI IPT 2019y
 
-`All needed tasks described in all-labs.pdf file`
+`All needed tasks described in all-labs.pdf`
 
-`Solutions described in solved-tasks.pdf file`
-
-Labs
-
-# lab1
-## Bayesian strategy for:
-* Binary loss function
-* Delta loss function
+`Solutions described in solved-tasks.pdf`
 
 
-# lab2
-
-### Part 1 
-* Analysis nonbayesian strategy
-
-
-### Part 2
-* Effective algorithm for calculating cumulative sums of 1D,2D and 3D arrays
+# lab1 - Bayesian Strategy for Binary and Delta Loss Function
+### Image Denoising (Bernoulli noise)
+# lab2.1 - Analysis of Nonbayesian Strategy
+# lab2.2 - Implementation of Effective algorithm for calculation cumulative sums of 1D, 2D and 3D arrays
 
 
-# lab3
-## Divisibility sum of digits (Hidden Markov Model)
-
-
-# lab4
-## Binocular stereo vision
-### Source of images  - http://vision.middlebury.edu/stereo/data/
-
-
-# lab5
+# lab3 - Hidden Markov Model (HMM)
+### Divisibility sum of digits 
+# lab4 - DP algorithm for chain-structured graphical models
+### Binocular stereo vision
+**_NOTE:_**  Source of images - http://vision.middlebury.edu/stereo/data/
+# lab5 EM Algorithm for Binary Clustering
 ## EM Algorithm for Binary Clustering
+### Binary image clustering (mnist dataset)
 
-
-# lab6
-## Modification of Perceptron Algorithm where hyperplane is circle
+# lab6 - Modification of a Perceptron Algorithm
+### Modification of Perceptron Algorithm where hyperplane is a circle (modified scalar product)
