@@ -1,3 +1,0 @@
-mnist==0.2.2
-numpy==1.16.2
-matplotlib=3.0.3

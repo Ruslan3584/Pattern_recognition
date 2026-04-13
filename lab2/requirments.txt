@@ -1,3 +1,0 @@
-numpy==1.16.2
-progressbar2==3.37.1
-matplotlib==3.0.3
