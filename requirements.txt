@@ -1,0 +1,4 @@
+numpy>=2.4.1
+pillow>=12.1.0
+scikit-learn>=1.8.0
+matplotlib>=3.10.8
