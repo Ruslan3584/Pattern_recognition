@@ -1,9 +1,12 @@
 # Pattern Recognition
 
 **Table of contents**
-- [Decoding of a noised number](#lab-1--decoding-of-a-noised-number)
-- [Risk minimization](#lab-2--risk-minimization)
-- [Risk minimization](#lab-3--risk-minimization)
+
+- [Acknowledgements](#acknowledgements)
+- [Setup](#setup)
+- [Decoding of a noisy number](#lab-1--decoding-of-a-noisy-number)
+- [Risk minimization (interval loss function)](#lab-2--risk-minimization-interval-loss-function)
+- [Risk minimization (l1 loss function)](#lab-3--risk-minimization-l1-loss-function)
 - [Analysis of Nonbayesian Strategy](#lab-4--analysis-of-nonbayesian-strategy)
 - [Efficient computation of a sum of a subarray in 1D](#lab-5--efficient-computation-of-a-sum-of-a-subarray-in-1d-2d-and-3d)
 - [Divisibility sum of digits](#lab-6--divisibility-sum-of-digits)
@@ -16,10 +19,50 @@
 - [solutions.pdf](`all-labs.pdf`)
 - [tasks.pdf](`tasks.pdf`)
 
-## Lab 1 – Decoding of a noised number
+## Acknowledgements
+
+We would like to express our sincere gratitude to the course instructor, 
+**Valerii Krygin**, <!-- (ak `Boss of this Gym` ♂️💪) --> 
+for the tremendous effort, dedication, and passion invested in teaching 📚 this course. 
+His commitment to delivering high-quality material and supporting students throughout 
+the learning process has been truly invaluable.
+
+This course laid the foundation for our understanding of Python programming 🐍 and the 
+fundamentals of computer vision 👁️🖥️, opening the door to further growth in these fields.
+
+We are grateful for the patience, guidance, and encouragement provided along 
+the way when our <!--asses --> code was full of bugs and errors <!-- cumsums -->.
+
+We will always remember the many sleepless hours 😵‍💫 it required-<!-- to spend in the dungeon --> 
+and even more so, the lasting value, skills, and mindset it has given us for the future 🚀.
+
+<!--Thank you, master. -->
+
+## Setup
+
+To run these applications, you need to have **Python3.12**.
+
+1. Clone repo.
+
+2. Create virtual environment.
+```bash
+python3.12 -m venv .venv
+```
+
+3. Activate it
+```bash
+source .venv/bin/activate
+```
+
+4. Install requirements:
+```bash
+pip install -r requirements.txt
+```
+
+## Lab 1 – Decoding of a noisy number
 
 ### Description
-The program converts a number to a noised (bernoulli noise) image and then decodes it.
+The program converts a number to a noisy (bernoulli noise) image and then decodes it.
 Bayesian strategy for a binary loss function is used.
 
 ### Usage
@@ -51,12 +94,12 @@ Time: 0.022138417001769994 sec
 Decoded number: 9
 ```
 
-| Original image                   |                Noised image                | Decoded number |
+| Original image                   |                Noisy image                 | Decoded number |
 |----------------------------------|:------------------------------------------:|----------------|
 | ![](.imgs/lab1/number_img.png)   | ![](.imgs/lab1/number_img_noised_0.56.png) | 9              |
 
 
-## Lab 2 – Risk minimization
+## Lab 2 – Risk minimization (interval loss function)
 
 ### Description
 Bayesian strategy for **interval** loss function is used.
@@ -83,7 +126,7 @@ Heatmap normalized:  [0.10251256 0.1798995  0.09246231 0.01407035 0.10653266 0.0
 Result: 4
 ```
 
-## Lab 3 – Risk minimization
+## Lab 3 – Risk minimization (L1 loss function)
 
 ### Description
 Bayesian strategy for **L1** loss function is used.
@@ -199,7 +242,7 @@ Success divisions:  2/5
 time :  0.018097166999723413 sec
 ```
 
-| Image                                  |                      Noised Image                       |
+| Image                                  |                       Noisy Image                       |
 |----------------------------------------|:-------------------------------------------------------:|
 | ![](.imgs/lab6/digits_img__iter_0.png) | ![](.imgs/lab6/digits_img_noised__iter_0_div_True.png)  |
 | ![](.imgs/lab6/digits_img__iter_1.png) | ![](.imgs/lab6/digits_img_noised__iter_1_div_False.png) |
@@ -271,7 +314,7 @@ Testing on 3893 samples...
 Test set accuracy: 0.9604
 ```
 
-## Kab 9 - Finding the separating circle
+## Lab 9 – Finding the separating circle
 
 ### Description
 Modification of Perceptron Algorithm where hyperplane is a circle (modified scalar product).
@@ -297,3 +340,8 @@ Original:  a=0, b=8, r=9
 Predicted: a=0.261, b=8.462, r=8.711
 ```
 ![](.imgs/lab9/Figure_1.png)
+
+## Authors
+
+- Maksym Shylo
+- Ruslan Khomenko
