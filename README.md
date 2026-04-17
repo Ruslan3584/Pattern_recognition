@@ -2,27 +2,29 @@
 
 **Table of contents**
 
-- [Acknowledgements](#acknowledgements)
-- [Setup](#setup)
-- [Decoding of a noisy number](#lab-1--decoding-of-a-noisy-number)
-- [Risk minimization (interval loss function)](#lab-2--risk-minimization-interval-loss-function)
-- [Risk minimization (l1 loss function)](#lab-3--risk-minimization-l1-loss-function)
-- [Analysis of Nonbayesian Strategy](#lab-4--analysis-of-nonbayesian-strategy)
-- [Efficient computation of a sum of a subarray in 1D](#lab-5--efficient-computation-of-a-sum-of-a-subarray-in-1d-2d-and-3d)
-- [Divisibility sum of digits](#lab-6--divisibility-sum-of-digits)
-- [Binocular stereo vision](#lab-7--binocular-stereo-vision)
-- [Binary Clustering](#lab-8--binary-clustering)
-- [Finding the separating circle](#lab-9--finding-the-separating-circle)
+- [Lab 1. Decoding of a noisy number](#lab-1--decoding-of-a-noisy-number)
+- [Lab 2. Risk minimization (interval loss function)](#lab-2--risk-minimization-interval-loss-function)
+- [Lab 3. Risk minimization (l1 loss function)](#lab-3--risk-minimization-l1-loss-function)
+- [Lab 4. Analysis of Nonbayesian Strategy](#lab-4--analysis-of-nonbayesian-strategy)
+- [Lab 5. Efficient computation of a sum of a subarray in 1D, 2D, 3D](#lab-5--efficient-computation-of-a-sum-of-a-subarray-in-1d-2d-and-3d)
+- [Lab 6. Divisibility sum of digits](#lab-6--divisibility-sum-of-digits)
+- [Lab 7. Binocular stereo vision](#lab-7--binocular-stereo-vision)
+- [Lab 8. Binary Clustering](#lab-8--binary-clustering)
+- [Lab 9. Finding the separating circle](#lab-9--finding-the-separating-circle)
 
 **Tasks and mathematical solutions**
 
-- [solutions.pdf](`all-labs.pdf`)
-- [tasks.pdf](`tasks.pdf`)
+- [solutions.pdf](solutions.pdf).
+- [tasks.pdf](tasks.pdf);
+
+The tasks document is the 
+intellectual property of Valerii Krygin (@definability) and 
+is included in this repository with explicit permission.
 
 ## Acknowledgements
 
 We would like to express our sincere gratitude to the course instructor, 
-**Valerii Krygin**, <!-- (ak `Boss of this Gym` ♂️💪) --> 
+Valerii Krygin (@definability), <!-- (a.k.a. `Boss of this Gym` ♂️💪) --> 
 for the tremendous effort, dedication, and passion invested in teaching 📚 this course. 
 His commitment to delivering high-quality material and supporting students throughout 
 the learning process has been truly invaluable.
@@ -30,10 +32,7 @@ the learning process has been truly invaluable.
 This course laid the foundation for our understanding of Python programming 🐍 and the 
 fundamentals of computer vision 👁️🖥️, opening the door to further growth in these fields.
 
-We are grateful for the patience, guidance, and encouragement provided along 
-the way when our <!--asses --> code was full of bugs and errors <!-- cumsums -->.
-
-We will always remember the many sleepless hours 😵‍💫 it required-<!-- to spend in the dungeon --> 
+We will always remember the sleepless nights 😵‍💫 it required-<!-- to spend in the dungeon --> 
 and even more so, the lasting value, skills, and mindset it has given us for the future 🚀.
 
 <!--Thank you, master. -->
@@ -45,24 +44,24 @@ To run these applications, you need to have **Python3.12**.
 1. Clone repo.
 
 2. Create virtual environment.
-```bash
-python3.12 -m venv .venv
-```
+    ```bash
+    python3.12 -m venv .venv
+    ```
 
 3. Activate it
-```bash
-source .venv/bin/activate
-```
+    ```bash
+    source .venv/bin/activate
+    ```
 
 4. Install requirements:
-```bash
-pip install -r requirements.txt
-```
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 ## Lab 1 – Decoding of a noisy number
 
 ### Description
-The program converts a number to a noisy (bernoulli noise) image and then decodes it.
+The program converts a number to a noisy (Bernoulli noise) image and then decodes it.
 Bayesian strategy for a binary loss function is used.
 
 ### Usage
@@ -200,7 +199,7 @@ $ python subsum.py
 | ![](.imgs/lab5/benchmark_numpy.png) | ![](.imgs/lab5/benchmark_prefix.png) |
 
 
-## Lab 6 – Divisibility sum of digits 
+## Lab 6 – Divisibility sum of digits
 
 ### Description
 The program generates a number image and then apply noise and checks whether it is divisible by a given number.
@@ -275,11 +274,14 @@ options:
 python3 stereo.py --left examples/im2.ppm --right examples/im5.ppm --alpha 10 --maxd 50
 ```
 
-| Left Image                        | Right Image             |                      Disparity Map                      |
-|-----------------------------------|-------------------------|:-------------------------------------------------------:|
-| ![](.imgs/lab7/im2.png)   | ![](.imgs/lab7/im5.png) | ![](.imgs/lab7/disparity_map.png)  |
+| Left Image                  | Right Image             |            Disparity Map             |
+|-----------------------------|-------------------------|:------------------------------------:|
+| ![](.imgs/lab7/im2.png)     | ![](.imgs/lab7/im5.png) | ![](.imgs/lab7/disparity_map.png)    |
 
-Images - http://vision.middlebury.edu/stereo/data/
+[Images](http://vision.middlebury.edu/stereo/data/): 
+D. Scharstein and R. Szeliski. A taxonomy and evaluation of dense two-frame 
+stereo correspondence algorithms.
+International Journal of Computer Vision, 47(1/2/3):7-42, April-June 2002.
 
 
 ## Lab 8 – Binary Clustering
@@ -343,5 +345,5 @@ Predicted: a=0.261, b=8.462, r=8.711
 
 ## Authors
 
-- Maksym Shylo
-- Ruslan Khomenko
+- Maksym Shylo (@maksymshylo)
+- Ruslan Khomenko (@Ruslan3584)
