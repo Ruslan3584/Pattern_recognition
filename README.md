@@ -18,13 +18,13 @@
 - [tasks.pdf](tasks.pdf);
 
 The tasks document is the 
-intellectual property of [Valerii Krygin](https://github.com/definability) and 
+intellectual property of Valerii Krygin ([definability](https://github.com/definability)) and 
 is included in this repository with explicit permission.
 
 ## Acknowledgements
 
 We would like to express our sincere gratitude to the course instructor, 
-[Valerii Krygin](https://github.com/definability), <!-- (a.k.a. `Boss of this Gym` ♂️💪) --> 
+Valerii Krygin ([definability](https://github.com/definability)), <!-- (a.k.a. `Boss of this Gym` ♂️💪) --> 
 for the tremendous effort, dedication, and passion invested in teaching 📚 this course. 
 His commitment to delivering high-quality material and supporting students throughout 
 the learning process has been truly invaluable.
@@ -345,5 +345,5 @@ Predicted: a=0.261, b=8.462, r=8.711
 
 ## Authors
 
-- [Maksym Shylo](https://github.com/maksymshylo)
-- [Ruslan Khomenko](https://github.com/Ruslan3584)
+- Maksym Shylo ([maksymshylo](https://github.com/maksymshylo))
+- Ruslan Khomenko ([Ruslan3584](https://github.com/Ruslan3584))
